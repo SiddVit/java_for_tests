@@ -16,3 +16,7 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 .idea/workspace.xml
 .idea/misc.xml
+.idea/uiDesigner.xml
+.idea/codeStyles/Project.xml
+.idea/gradle.xml
+.idea/codeStyles/Project.xml
