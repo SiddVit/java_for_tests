@@ -33,3 +33,4 @@ addressbook-web-tests/build/test-results/test/binary/output.bin.idx
 addressbook-web-tests/build/test-results/test/binary/results.bin
 addressbook-web-tests/build/test-results/test/TEST-ru.stqa.pft.addressbook.GroupCreationTests.xml
 .idea/codeStyles/Project.xml
+addressbook-web-tests/out/test/classes/ru/stqa/pft/addressbook/GroupCreationTests.class
