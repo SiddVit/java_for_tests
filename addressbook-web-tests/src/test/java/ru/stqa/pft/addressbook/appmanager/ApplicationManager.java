@@ -2,7 +2,6 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.stqa.pft.addressbook.SessionHelper;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +21,6 @@ public class ApplicationManager {
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login("admin", "secret");
     }
-
 
 
     public void stop() {
