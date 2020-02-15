@@ -22,4 +22,24 @@ public class ContactHelper extends HelperBase {
     public void submitContactForm() {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
+
+    public void initModificationContact() {
+        click(By.xpath("//td[8]//a[1]//img[1]"));
+    }
+
+    public void submitContactFormModification() {
+        click(By.name("update"));
+    }
+
+    public void closeAlert() {
+        wd.switchTo().alert().accept();
+    }
+
+    public void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    public void deleteSelectedContact() {
+        click(By.xpath("//div[2]//input[1]"));
+    }
 }
