@@ -1,7 +1,9 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.util.Objects;
+
 public class ContactData {
-    private final String id;
+    private int id;
     private final String firstname;
     private final String lastname;
     private final String nickname;
@@ -11,7 +13,7 @@ public class ContactData {
     private final String byear;
     private final String group;
 
-    public ContactData(String id, String firstname, String lastname, String nickname, String company, String bday, String bmonth, String byear, String group) {
+    public ContactData(int id, String firstname, String lastname, String nickname, String company, String bday, String bmonth, String byear, String group) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -24,7 +26,7 @@ public class ContactData {
     }
 
     public ContactData(String firstname, String lastname, String nickname, String company, String bday, String bmonth, String byear, String group) {
-        this.id = null;
+        this.id = 0;
         this.firstname = firstname;
         this.lastname = lastname;
         this.nickname = nickname;
@@ -35,10 +37,6 @@ public class ContactData {
         this.group = group;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,27 +44,38 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return firstname != null ? firstname.equals(that.firstname) : that.firstname == null;
+        if (id != that.id) return false;
+        if (!Objects.equals(firstname, that.firstname)) return false;
+        return Objects.equals(lastname, that.lastname);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = id;
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "ContactData{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 '}';
     }
 
-    public String getId() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
         return id;
+    }
+
+    public String getFirstname() {
+        return firstname;
     }
 
     public String getLastname() {

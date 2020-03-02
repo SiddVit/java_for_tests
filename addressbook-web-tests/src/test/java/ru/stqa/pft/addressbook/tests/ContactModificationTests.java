@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
@@ -13,15 +13,19 @@ public class ContactModificationTests extends TestBase {
         if (!app.getContactHelper().isThereAContact()) {
             app.getNavigationHelper().gotoNewContact();
             app.getContactHelper().createContact(new ContactData("Bred", "Pitt",
-                    "YouKnowThisGay", "Hollywood", "November", "1", "1990",
+                    "YouKnowThisGay", "Hollywood", "1", "November", "1990",
                     "Test 1"), true);
             app.getNavigationHelper().gotoHomePage();
         }
+
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initModificationContact();
+
         ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "Marry", "Duck",
-                "YouKnowThisGay", "Hollywood", "November", "1", "1990",
+                "YouKnowThisGay", "Hollywood", "1", "November", "1990",
                 "Test 1");
+
+        app.getContactHelper().selectContact(before.size() - 1);
+        app.getContactHelper().initModificationContact();
         app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().submitContactFormModification();
         app.getNavigationHelper().gotoHomePage();
@@ -30,6 +34,10 @@ public class ContactModificationTests extends TestBase {
 
         before.remove(before.size() - 1);
         before.add(contact);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
+
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before, after);
     }
 }
