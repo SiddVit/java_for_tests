@@ -36,8 +36,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void initModificationContact() {
-        click(By.xpath("//td[8]//a[1]//img[1]"));
+    public void initModificationContact(int index) {
+        wd.findElements(By.xpath("//td[8]//a[1]//img[1]")).get(index).click();
     }
 
     public void submitContactFormModification() {

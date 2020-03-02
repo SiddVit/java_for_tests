@@ -24,8 +24,9 @@ public class ContactModificationTests extends TestBase {
                 "YouKnowThisGay", "Hollywood", "1", "November", "1990",
                 "Test 1");
 
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().initModificationContact();
+        int modifIndex = before.size() - 1;
+        app.getContactHelper().selectContact(modifIndex);
+        app.getContactHelper().initModificationContact(modifIndex);
         app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().submitContactFormModification();
         app.getNavigationHelper().gotoHomePage();
