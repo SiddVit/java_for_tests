@@ -14,7 +14,7 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation) {
+    public void fillForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("nickname"), contactData.getNickname());
@@ -36,11 +36,11 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void initModificationContact(int index) {
+    public void modification(int index) {
         wd.findElements(By.xpath("//td[8]//a[1]//img[1]")).get(index).click();
     }
 
-    public void submitContactFormModification() {
+    public void submitFormModification() {
         click(By.name("update"));
     }
 
@@ -48,7 +48,7 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void selectContact(int index) {
+    public void select(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
@@ -56,8 +56,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[2]//input[1]"));
     }
 
-    public void createContact(ContactData contact, boolean creation) {
-        fillContactForm(contact, creation);
+    public void create(ContactData contact, boolean creation) {
+        fillForm(contact, creation);
         submitContactForm();
     }
 
@@ -69,7 +69,7 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
@@ -81,5 +81,17 @@ public class ContactHelper extends HelperBase {
             contacts.add(contact);
         }
         return contacts;
+    }
+
+    public void modify(int index, ContactData contact) {
+        select(index);
+        modification(index);
+        fillForm(contact, false);
+        submitFormModification();
+    }
+
+    public void create(ContactData contact) {
+        fillForm(contact, true);
+        submitContactForm();
     }
 }
