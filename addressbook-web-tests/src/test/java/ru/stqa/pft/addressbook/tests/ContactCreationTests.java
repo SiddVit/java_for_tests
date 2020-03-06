@@ -16,10 +16,10 @@ public class ContactCreationTests extends TestBase {
                 "Test 1");
 
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getNavigationHelper().gotoNewContact();
+        app.goTo().newContact();
         app.getContactHelper().fillContactForm(contact, true);
         app.getContactHelper().submitContactForm();
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
 
         contact.setId(after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId());
