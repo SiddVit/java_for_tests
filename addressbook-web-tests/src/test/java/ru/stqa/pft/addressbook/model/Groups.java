@@ -1,0 +1,37 @@
+package ru.stqa.pft.addressbook.model;
+
+import com.google.common.collect.ForwardingList;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class Groups extends ForwardingList<GroupData> {
+
+    private Set<GroupData> delegate;
+
+    public Groups(Groups groups) {
+        this.delegate = new HashSet<GroupData>(groups.delegate);
+    }
+
+    public Groups() {
+        this.delegate = new HashSet<GroupData>();
+    }
+
+    @Override
+    protected List<GroupData> delegate() {
+        return null;
+    }
+
+    public Groups withAdded(GroupData group) {
+        Groups groups = new Groups(this);
+        groups.add(group);
+        return groups;
+    }
+
+    public Groups without(GroupData group) {
+        Groups groups = new Groups(this);
+        groups.remove(group);
+        return groups;
+    }
+}

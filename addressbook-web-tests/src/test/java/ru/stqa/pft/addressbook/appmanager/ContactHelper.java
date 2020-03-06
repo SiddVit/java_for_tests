@@ -7,7 +7,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
@@ -37,7 +39,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modification(int index) {
-        wd.findElements(By.xpath("//td[8]//a[1]//img[1]")).get(index).click();
+        wd.findElement(By.cssSelector("[href^='edit.php?id=" + index + "']")).click();
     }
 
     public void submitFormModification() {
@@ -50,6 +52,10 @@ public class ContactHelper extends HelperBase {
 
     public void select(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
+    }
+
+    private void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void deleteSelectedContact() {
@@ -82,9 +88,22 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    public void modify(int index, ContactData contact) {
-        select(index);
-        modification(index);
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for (WebElement element : elements) {
+            String firstname = element.findElements(By.tagName("td")).get(2).getText();
+            String lastname = element.findElements(By.tagName("td")).get(1).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+            ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+    public void modify(ContactData contact) {
+        selectContactById(contact.getId());
+        modification(contact.getId());
         fillForm(contact, false);
         submitFormModification();
     }
@@ -92,5 +111,11 @@ public class ContactHelper extends HelperBase {
     public void create(ContactData contact) {
         fillForm(contact, true);
         submitContactForm();
+    }
+
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
+        deleteSelectedContact();
+        closeAlert();
     }
 }

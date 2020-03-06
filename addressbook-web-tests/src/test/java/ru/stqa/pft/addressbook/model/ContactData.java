@@ -7,11 +7,6 @@ public class ContactData {
     private String firstname;
     private String lastname;
     private String nickname;
-    private String company;
-    private String bday;
-    private String bmonth;
-    private String byear;
-    private String group;
 
     @Override
     public boolean equals(Object o) {
@@ -32,6 +27,12 @@ public class ContactData {
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
     }
+
+    private String company;
+    private String bday;
+    private String bmonth;
+    private String byear;
+    private String group;
 
     @Override
     public String toString() {
