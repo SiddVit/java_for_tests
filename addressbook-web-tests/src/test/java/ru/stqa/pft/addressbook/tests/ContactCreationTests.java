@@ -10,9 +10,9 @@ import java.util.List;
 public class ContactCreationTests extends TestBase {
     @Test
     public void testContactCreation() {
-        ContactData contact = new ContactData("Bred", "Pitt",
-                "YouKnowThisGay", "Hollywood", "1", "November", "1990",
-                "Test 1");
+        ContactData contact = new ContactData().withFirstname("Bred").withLastname("Pitt")
+                .withNickname("YouKnowThisGay").withCompany("Hollywood").withBday("1").withBmonth("November")
+                .withByear("1990").withGroup("Test 1");
 
         List<ContactData> before = app.contact().list();
 
