@@ -16,11 +16,10 @@ public class ContactData {
     private String mobile;
     private String work;
     private String allPhones;
-
-    public ContactData withId(int id) {
-        this.id = id;
-        return this;
-    }
+    private String email1;
+    private String email2;
+    private String email3;
+    private String allMails;
 
     public ContactData withFirstname(String firstname) {
         this.firstname = firstname;
@@ -82,6 +81,26 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withEmail1(String email1) {
+        this.email1 = email1;
+        return this;
+    }
+
+    public ContactData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public ContactData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+    public ContactData withAllEmail(String allMails) {
+        this.allMails = allMails;
+        return this;
+    }
+
     public int getId() {
         return id;
     }
@@ -134,6 +153,27 @@ public class ContactData {
         return allPhones;
     }
 
+    public String getEmail1() {
+        return email1;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public String getEmail3() {
+        return email3;
+    }
+
+    public String getAllMails() {
+        return allMails;
+    }
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -162,4 +202,5 @@ public class ContactData {
                 ", lastname='" + lastname + '\'' +
                 '}';
     }
+
 }

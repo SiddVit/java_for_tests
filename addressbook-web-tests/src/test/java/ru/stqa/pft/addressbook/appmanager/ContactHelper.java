@@ -27,6 +27,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("home"), contactData.getHomePhone());
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("work"), contactData.getWorkPhone());
+        type(By.name("email"), contactData.getEmail1());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
 
         if (creation) {
             if (isElementPresent(By.name("new_group"))) {
@@ -89,8 +92,9 @@ public class ContactHelper extends HelperBase {
             String firstname = element.findElements(By.tagName("td")).get(2).getText();
             String lastname = element.findElements(By.tagName("td")).get(1).getText();
             String allphones = element.findElements(By.tagName("td")).get(5).getText();
+            String allemail = element.findElements(By.tagName("td")).get(4).getText();
             contactCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
-                    .withAllPhones(allphones));
+                    .withAllPhones(allphones).withAllEmail(allemail));
         }
         return new Contacts(contactCache);
     }
@@ -116,7 +120,7 @@ public class ContactHelper extends HelperBase {
         contactCache = null;
     }
 
-    public ContactData infoFromEditForm(ContactData contact) {
+    public ContactData infoPhoneFromEditForm(ContactData contact) {
         initContactModificationById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
@@ -126,6 +130,18 @@ public class ContactHelper extends HelperBase {
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
                 .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+    }
+
+    public ContactData infoEmailFromEditForm(ContactData contact) {
+        initContactModificationById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String email1 = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+                .withEmail1(email1).withEmail2(email2).withEmail3(email3);
     }
 
     private void initContactModificationById(int id) {
