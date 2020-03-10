@@ -1,11 +1,10 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Set;
-
-import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTests extends TestBase {
     @Test
@@ -24,6 +23,6 @@ public class ContactCreationTests extends TestBase {
 
         contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
         before.add(contact);
-        assertEquals(before, after);
+        Assert.assertEquals(before, after);
     }
 }
