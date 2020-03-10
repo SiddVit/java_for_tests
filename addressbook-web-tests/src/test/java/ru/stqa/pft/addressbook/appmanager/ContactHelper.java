@@ -10,6 +10,8 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
+    public Contacts contactCache = null;
+
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
@@ -74,15 +76,24 @@ public class ContactHelper extends HelperBase {
     }
 
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String firstname = element.findElements(By.tagName("td")).get(2).getText();
             String lastname = element.findElements(By.tagName("td")).get(1).getText();
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
+            contactCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
         }
-        return contacts;
+        return new Contacts(contactCache);
+    }
+
+    public void create(ContactData contact) {
+        fillForm(contact, true);
+        submitContactForm();
+        contactCache = null;
     }
 
     public void modify(ContactData contact) {
@@ -90,16 +101,13 @@ public class ContactHelper extends HelperBase {
         modification(contact.getId());
         fillForm(contact, false);
         submitFormModification();
-    }
-
-    public void create(ContactData contact) {
-        fillForm(contact, true);
-        submitContactForm();
+        contactCache = null;
     }
 
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteSelectedContact();
         closeAlert();
+        contactCache = null;
     }
 }
