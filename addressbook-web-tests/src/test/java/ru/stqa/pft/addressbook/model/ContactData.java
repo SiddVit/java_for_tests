@@ -12,6 +12,9 @@ public class ContactData {
     private String bmonth;
     private String byear;
     private String group;
+    private String home;
+    private String mobile;
+    private String work;
 
     public ContactData withId(int id) {
         this.id = id;
@@ -58,6 +61,21 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withHomePhone(String home) {
+        this.home = home;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String work) {
+        this.work = work;
+        return this;
+    }
+
     public int getId() {
         return id;
     }
@@ -93,6 +111,19 @@ public class ContactData {
     public String getGroup() {
         return group;
     }
+
+    public String getHomePhone() {
+        return home;
+    }
+
+    public String getMobilePhone() {
+        return mobile;
+    }
+
+    public String getWorkPhone() {
+        return work;
+    }
+
 
     @Override
     public boolean equals(Object o) {
