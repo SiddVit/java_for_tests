@@ -15,6 +15,7 @@ public class ContactData {
     private String home;
     private String mobile;
     private String work;
+    private String allPhones;
 
     public ContactData withId(int id) {
         this.id = id;
@@ -76,6 +77,11 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
     public int getId() {
         return id;
     }
@@ -124,6 +130,9 @@ public class ContactData {
         return work;
     }
 
+    public String getAllPhones() {
+        return allPhones;
+    }
 
     @Override
     public boolean equals(Object o) {
