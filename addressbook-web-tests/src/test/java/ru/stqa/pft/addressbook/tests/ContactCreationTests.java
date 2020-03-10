@@ -12,7 +12,8 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreation() {
         ContactData contact = new ContactData().withFirstname("Bred").withLastname("Pitt")
                 .withNickname("YouKnowThisGay").withCompany("Hollywood").withBday("1").withBmonth("November")
-                .withByear("1990").withGroup("Test 1").withHomePhone("321").withMobilePhone("456").withWorkPhone("789");
+                .withByear("1990").withGroup("Test 1").withHomePhone("+7(111)").withMobilePhone("22-22")
+                .withWorkPhone("33 33 33");
 
         Contacts before = app.contact().all();
 
