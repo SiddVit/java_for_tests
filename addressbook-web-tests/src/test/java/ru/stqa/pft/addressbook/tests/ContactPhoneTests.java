@@ -22,7 +22,8 @@ public class ContactPhoneTests extends TestBase {
             app.contact().create(new ContactData().withFirstname("Bred").withLastname("Pitt")
                     .withNickname("YouKnowThisGay").withCompany("Hollywood").withBday("1").withBmonth("November")
                     .withByear("1990").withGroup("Test 1").withHomePhone("+7(111)").withMobilePhone("22-22")
-                    .withWorkPhone("33 33 33").withEmail1("ss@ma.ru").withEmail2("").withEmail3("logput"), true);
+                    .withWorkPhone("33 33 33").withEmail1("ss@ma.ru").withEmail2("").withEmail3("logput")
+                    .withAddress("NY, Paradise st., 10"), true);
             app.goTo().homePage();
         }
     }

@@ -20,6 +20,7 @@ public class ContactData {
     private String email2;
     private String email3;
     private String allMails;
+    private String address;
 
     public ContactData withFirstname(String firstname) {
         this.firstname = firstname;
@@ -101,6 +102,16 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
     public int getId() {
         return id;
     }
@@ -169,9 +180,8 @@ public class ContactData {
         return allMails;
     }
 
-    public ContactData withId(int id) {
-        this.id = id;
-        return this;
+    public String getAddress() {
+        return address;
     }
 
     @Override
@@ -202,5 +212,4 @@ public class ContactData {
                 ", lastname='" + lastname + '\'' +
                 '}';
     }
-
 }

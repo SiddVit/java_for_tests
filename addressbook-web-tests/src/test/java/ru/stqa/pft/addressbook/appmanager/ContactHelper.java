@@ -30,6 +30,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contactData.getEmail1());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
+        type(By.name("address"), contactData.getAddress());
 
         if (creation) {
             if (isElementPresent(By.name("new_group"))) {
@@ -93,8 +94,9 @@ public class ContactHelper extends HelperBase {
             String lastname = element.findElements(By.tagName("td")).get(1).getText();
             String allphones = element.findElements(By.tagName("td")).get(5).getText();
             String allemail = element.findElements(By.tagName("td")).get(4).getText();
+            String alladdress = element.findElements(By.tagName("td")).get(3).getText();
             contactCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
-                    .withAllPhones(allphones).withAllEmail(allemail));
+                    .withAllPhones(allphones).withAllEmail(allemail).withAddress(alladdress));
         }
         return new Contacts(contactCache);
     }
@@ -149,5 +151,15 @@ public class ContactHelper extends HelperBase {
         WebElement row = checkbox.findElement(By.xpath("./../.."));
         List<WebElement> cells = row.findElements(By.tagName("td"));
         cells.get(7).findElement(By.tagName("a")).click();
+    }
+
+    public ContactData infoAddressFromEditForm(ContactData contact) {
+        initContactModificationById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+                .withAddress(address);
     }
 }
