@@ -9,6 +9,7 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     compile group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
     compile group: 'com.beust', name: 'jcommander', version: '1.78'
+    compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.11.1'
 }
 
 test {
