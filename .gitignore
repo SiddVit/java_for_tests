@@ -29,3 +29,4 @@ addressbook.zip
 xampp-windows-x64-7.4.2-0-VC15-installer.exe
 addressbook-web-tests/out/test/classes/ru/stqa/pft/addressbook/GroupCreationTests.class
 /sandbox/out/
+*.log
