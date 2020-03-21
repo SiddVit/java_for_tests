@@ -7,7 +7,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,26 +53,7 @@ public class ContactCreationTests extends TestBase {
     }
 
 
-    @Test(dataProvider = "validContactsFromJSON")
-    public void testContactCreation(ContactData contact) {
-        Contacts before = app.contact().all();
-
-        app.goTo().newContact();
-
-
-        app.contact().create(contact);
-        app.goTo().homePage();
-
-        assertThat(app.contact().count(), equalTo(before.size() + 1));
-
-        Contacts after = app.contact().all();
-
-
-        assertThat(after, equalTo(before
-                .withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-    }
-
-    @Test(enabled = false)
+    @Test
     public void testContactCreationWithPhoto() {
         File photo = new File("src/test/resources/11346-slider_thumb.jpg");
         ContactData contact = new ContactData().withFirstname("Bred").withLastname("Pitt")
@@ -82,6 +62,24 @@ public class ContactCreationTests extends TestBase {
                 .withWorkPhone("33 33 33").withEmail1("ss@ma.ru").withEmail2("").withEmail3("logput")
                 .withAddress("NY, Paradise st., 10").withPhoto(photo);
 
+        Contacts before = app.db().contacts();
+
+        app.goTo().newContact();
+
+        app.contact().create(contact);
+        app.goTo().homePage();
+
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
+
+        Contacts after = app.db().contacts();
+
+
+        assertThat(after, equalTo(before
+                .withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    }
+
+    @Test(dataProvider = "validContactsFromJSON")
+    public void testContactCreation(ContactData contact) {
         Contacts before = app.contact().all();
 
         app.goTo().newContact();

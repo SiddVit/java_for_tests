@@ -8,12 +8,28 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ContactHelper extends HelperBase {
     public Contacts contactCache = null;
 
     public ContactHelper(WebDriver wd) {
         super(wd);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactHelper that = (ContactHelper) o;
+
+        return Objects.equals(contactCache, that.contactCache);
+    }
+
+    @Override
+    public int hashCode() {
+        return contactCache != null ? contactCache.hashCode() : 0;
     }
 
     public void fillForm(ContactData contactData, boolean creation) {
