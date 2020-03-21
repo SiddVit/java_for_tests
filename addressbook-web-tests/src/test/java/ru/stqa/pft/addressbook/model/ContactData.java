@@ -7,7 +7,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -38,9 +40,6 @@ public class ContactData {
     @Expose
     @Column(name = "byear")
     private String byear;
-    @Expose
-    @Transient
-    private String group;
     @Expose
     @Column(name = "home")
     @Type(type = "text")
@@ -78,6 +77,11 @@ public class ContactData {
     @Type(type = "text")
     private String photo;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
+
     public ContactData withFirstname(String firstname) {
         this.firstname = firstname;
         return this;
@@ -110,11 +114,6 @@ public class ContactData {
 
     public ContactData withByear(String byear) {
         this.byear = byear;
-        return this;
-    }
-
-    public ContactData withGroup(String group) {
-        this.group = group;
         return this;
     }
 
@@ -205,10 +204,6 @@ public class ContactData {
         return byear;
     }
 
-    public String getGroup() {
-        return group;
-    }
-
     public String getHomePhone() {
         return home;
     }
@@ -247,6 +242,10 @@ public class ContactData {
 
     public File getPhoto() {
         return new File(photo);
+    }
+
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     @Override
@@ -313,5 +312,10 @@ public class ContactData {
         result = 31 * result + (email3 != null ? email3.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
     }
 }

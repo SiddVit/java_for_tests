@@ -74,7 +74,7 @@ public class ContactDataGenerator {
             for (ContactData contact : contacts) {
                 writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
                         contact.getFirstname(), contact.getLastname(), contact.getNickname(), contact.getCompany(),
-                        contact.getBday(), contact.getBmonth(), contact.getByear(), contact.getGroup(),
+//                        contact.getBday(), contact.getBmonth(), contact.getByear(), contact.getGroup(),
                         contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(),
                         contact.getEmail1(), contact.getEmail2(), contact.getEmail3(),
                         contact.getAddress()));
