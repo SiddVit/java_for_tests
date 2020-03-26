@@ -183,9 +183,19 @@ public class ContactHelper extends HelperBase {
                 .withAddress(address);
     }
 
-    public void addToGroup(String nameGroup) {
+    public void choiceGroup(String nameGroup) {
         select(By.name("to_group"), nameGroup);
-        wd.findElement(By.name("add")).click();
+    }
 
+    public void submitContactToGroup() {
+        wd.findElement(By.name("add")).click();
+    }
+
+    public void selectGroupFilterByName(String group) {
+        select(By.name("group"), group);
+    }
+
+    public void submitContactDeleteFromGroup() {
+        wd.findElement(By.name("remove")).click();
     }
 }
