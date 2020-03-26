@@ -4,6 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.File;
 
@@ -19,7 +20,7 @@ public class ContactModificationTests extends TestBase {
             app.goTo().newContact();
             app.contact().create(new ContactData().withFirstname("Bred").withLastname("Pitt")
                     .withNickname("YouKnowThisGay").withCompany("Hollywood").withBday("1").withBmonth("November")
-                    .withByear("1990").withGroups("Test 1").withHomePhone("+7(111)").withMobilePhone("22-22")
+                    .withByear("1990").withHomePhone("+7(111)").withMobilePhone("22-22")
                     .withWorkPhone("33 33 33").withEmail1("ss@ma.ru").withEmail2("").withEmail3("logput")
                     .withAddress("NY, Paradise st., 10").withPhoto(photo), true);
             app.goTo().homePage();
@@ -33,7 +34,7 @@ public class ContactModificationTests extends TestBase {
 
         ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstname("Maggie")
                 .withLastname("Duck").withNickname("YouKnowThisGay").withCompany("Hollywood").withBday("1")
-//                .withBmonth("November").withByear("1990").withGroup("Test 1")
+                .withBmonth("November").withByear("1990")
                 .withHomePhone("+7(111)").withMobilePhone("22-22").withWorkPhone("33 33 33")
                 .withEmail1("ss@ma.ru").withEmail2("").withEmail3("logput").withAddress("NY, Paradise st., 10")
                 .withPhoto(photo);

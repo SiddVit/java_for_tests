@@ -81,7 +81,7 @@ public class ContactHelper extends HelperBase {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    private void selectContactById(int id) {
+    public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
@@ -181,5 +181,11 @@ public class ContactHelper extends HelperBase {
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
                 .withAddress(address);
+    }
+
+    public void addToGroup(String nameGroup) {
+        select(By.name("to_group"), nameGroup);
+        wd.findElement(By.name("add")).click();
+
     }
 }
