@@ -17,6 +17,7 @@ public class ApplicationManager {
     private WebDriver wd;
 
     private String browser;
+    private RegistrationHelper registrationHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -43,7 +44,10 @@ public class ApplicationManager {
     }
 
     public RegistrationHelper registration() {
-        return new RegistrationHelper(this);
+        if (registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
+        }
+        return registrationHelper;
     }
 
     public WebDriver getDriver() {
