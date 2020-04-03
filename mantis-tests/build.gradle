@@ -9,9 +9,10 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     compile group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
+    compile group: 'commons-net', name: 'commons-net', version: '3.6'
 }
 
-test (type: Test) {
+test {
     useTestNG {
         suites 'src/test/resources/testng.xml'
     }

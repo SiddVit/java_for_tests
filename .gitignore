@@ -27,6 +27,6 @@ addressbook-web-tests/out/
 addressbook-web-tests/out/test/classes/ru/stqa/pft/addressbook/GroupCreationTests.class
 addressbook.zip
 xampp-windows-x64-7.4.2-0-VC15-installer.exe
-addressbook-web-tests/out/test/classes/ru/stqa/pft/addressbook/GroupCreationTests.class
+/addressbook-web-tests/out/
 /sandbox/out/
 *.log
