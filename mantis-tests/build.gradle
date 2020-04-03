@@ -8,9 +8,10 @@ dependencies {
     compile group: 'org.testng', name: 'testng', version: '7.1.0'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     compile group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
 }
 
-task(type: Test) {
+test (type: Test) {
     useTestNG {
         suites 'src/test/resources/testng.xml'
     }
