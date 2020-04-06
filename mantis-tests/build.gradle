@@ -6,10 +6,13 @@ repositories {
 
 dependencies {
     compile group: 'org.testng', name: 'testng', version: '7.1.0'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.5'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     compile group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
     compile group: 'commons-net', name: 'commons-net', version: '3.6'
+    compile group: 'org.subethamail', name: 'subethasmtp', version: '3.1.7'
+    compile group: 'ru.lanwen.verbalregex', name: 'java-verbal-expressions', version: '1.6'
 }
 
 test {
