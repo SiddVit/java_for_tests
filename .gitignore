@@ -2,6 +2,11 @@
 /sandbox/.gradle
 /build/
 /sandbox/build/
+/rest-sample/build/
+/rest-sample/.gradle/
+rest-sample/.gradle/
+/rest-sample/out/
+rest-sample/out/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -22,7 +27,6 @@ gradle-app.setting
 .idea/vcs.xml
 .idea/
 addressbook-web-tests/build/
-.idea/codeStyles/Project.xml
 addressbook-web-tests/out/
 addressbook.zip
 xampp-windows-x64-7.4.2-0-VC15-installer.exe
