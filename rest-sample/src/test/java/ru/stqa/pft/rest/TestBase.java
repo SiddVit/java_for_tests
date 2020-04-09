@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.jayway.restassured.RestAssured;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 
 import java.io.File;
@@ -37,8 +37,15 @@ public class TestBase {
                 .returnContent().asString();
         JsonElement parsed = JsonParser.parseString(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
-        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
-        }.getType());
+        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
+    }
+
+    public String getStatus(int issueId) throws IOException {
+        String json = getExecutor().execute(Request.Get(getProperty("rest.url") + String.format("/issues/%s.json", issueId)))
+                .returnContent().asString();
+        JsonElement parsed = JsonParser.parseString(json);
+        return parsed.getAsJsonObject().get("issues").getAsJsonArray().get(0)
+                .getAsJsonObject().get("state_name").getAsString();
     }
 
     int createIssue(Issue newIssue) throws IOException {
@@ -48,6 +55,16 @@ public class TestBase {
                 .returnContent().asString();
         JsonElement parsed = JsonParser.parseString(json);
         return parsed.getAsJsonObject().get("issue_id").getAsInt();
+    }
+
+    boolean isIssueOpen(int issueId) throws IOException {
+        return !getStatus(issueId).equals("Closed");
+    }
+
+    public void skipIfNotFixed(int issueId) throws IOException {
+        if (isIssueOpen(issueId)) {
+            throw new SkipException("Ignored because of issue " + issueId);
+        }
     }
 
     @BeforeMethod
