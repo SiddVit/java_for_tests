@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.jayway.restassured.RestAssured;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
@@ -12,7 +13,6 @@ import org.testng.annotations.BeforeMethod;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -33,11 +33,12 @@ public class TestBase {
     }
 
     public Set<Issue> getIssues() throws IOException {
-        String json = getExecutor().execute(Request.Get(getProperty("rest.url") + "/issues.json"))
+        String json = getExecutor().execute(Request.Get(getProperty("rest.url") + "/issues.json?limit=500"))
                 .returnContent().asString();
         JsonElement parsed = JsonParser.parseString(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
-        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
+        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
+        }.getType());
     }
 
     int createIssue(Issue newIssue) throws IOException {
@@ -45,7 +46,7 @@ public class TestBase {
                 .bodyForm(new BasicNameValuePair("subject", newIssue.getSubject()),
                         new BasicNameValuePair("description", newIssue.getDescription())))
                 .returnContent().asString();
-        JsonElement parsed = new JsonParser().parse(json);
+        JsonElement parsed = JsonParser.parseString(json);
         return parsed.getAsJsonObject().get("issue_id").getAsInt();
     }
 
