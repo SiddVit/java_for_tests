@@ -20,6 +20,10 @@ public class SoapHelper {
         this.app = app;
     }
 
+    public MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
+        return new MantisConnectLocator().getMantisConnectPort(new URL(app.getProperty("web.urlSoap")));
+    }
+
     public Set<Project> getProjects() throws MalformedURLException, ServiceException, RemoteException {
         MantisConnectPortType mc = getMantisConnect();
         ProjectData[] projects = mc.mc_projects_get_user_accessible("administrator", "root");
@@ -27,13 +31,10 @@ public class SoapHelper {
                 .withId(p.getId().intValue()).withName(p.getName())).collect(Collectors.toSet());
     }
 
-    public MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
-        return new MantisConnectLocator().getMantisConnectPort(new URL(app.getProperty("web.urlSoap")));
-    }
-
     public Issue addIssue(Issue issue) throws MalformedURLException, ServiceException, RemoteException {
         MantisConnectPortType mc = getMantisConnect();
-        String[] categories = mc.mc_project_get_categories("administrator", "root", BigInteger.valueOf(issue.getProject().getId()));
+        String[] categories = mc.mc_project_get_categories("administrator", "root",
+                BigInteger.valueOf(issue.getProject().getId()));
         IssueData issueData = new IssueData();
         issueData.setSummary(issue.getSummary());
         issueData.setDescription(issue.getDescription());
@@ -46,5 +47,11 @@ public class SoapHelper {
                 .withProject(new Project().withId(createdIssueData.getProject().getId().intValue())
                         .withName(createdIssueData.getProject().getName()));
 
+    }
+
+    public String statusIssue(int issue) throws MalformedURLException, ServiceException, RemoteException {
+        MantisConnectPortType mc = getMantisConnect();
+        IssueData createdIssueData = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(issue));
+        return createdIssueData.getStatus().getName();
     }
 }
