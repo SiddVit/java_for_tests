@@ -35,3 +35,6 @@ mantis-tests/out/
 /mantis-tests/out/
 /sandbox/out/
 *.log
+*.mp4
+.idea/codeStyles/Project.xml
+.idea/gradle.xml
