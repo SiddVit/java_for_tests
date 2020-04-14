@@ -7,7 +7,6 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @XStreamAlias("group")
@@ -30,7 +29,7 @@ public class GroupData {
     @Type(type = "text")
     private String footer;
 
-    @ManyToMany(mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
     private Set<ContactData> contacts = new HashSet<ContactData>();
 
     public Contacts getContacts() {
@@ -81,9 +80,9 @@ public class GroupData {
         GroupData groupData = (GroupData) o;
 
         if (id != groupData.id) return false;
-        if (!Objects.equals(name, groupData.name)) return false;
-        if (!Objects.equals(header, groupData.header)) return false;
-        return Objects.equals(footer, groupData.footer);
+        if (name != null ? !name.equals(groupData.name) : groupData.name != null) return false;
+        if (header != null ? !header.equals(groupData.header) : groupData.header != null) return false;
+        return footer != null ? footer.equals(groupData.footer) : groupData.footer == null;
     }
 
     @Override
